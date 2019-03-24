@@ -29,7 +29,7 @@ class ModbusServer:
         serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # bind the socket to a public host, and a well-known port
         serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        serversocket.bind(("192.168.1.122", 5002))
+        serversocket.bind(("0.0.0.0", 5002))
         # become a server socket
         serversocket.listen(5)
         while self.keepRunning:
