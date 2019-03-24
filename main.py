@@ -25,8 +25,8 @@ values = [
     ModbusFloat("Battery(A)", solarValsStart + 5 * scale, rr, fixedPoint=100),
     ModbusFloat("Battery(WL)", solarValsStart + 6 * scale, rr, fixedPoint=100),
     ModbusFloat("Battery(WH)", solarValsStart + 7 * scale, rr, fixedPoint=100),
-    ModbusFloat("Load(I)", solarValsStart + 13 * scale, rr, fixedPoint=100),
     ModbusFloat("Load(V)", solarValsStart + 12 * scale, rr, fixedPoint=100),
+    ModbusFloat("Load(I)", solarValsStart + 13 * scale, rr, fixedPoint=100),
 
     ModbusFloat("TempCase(f)", solarValsStart + 17 * scale, rr, fixedPoint=100 * 5 / 9, offset=32),
 
@@ -49,6 +49,7 @@ while threading.active_count() > 0:
             'batteryVoltage': values[5].value,
             'loadVoltage': values[9].value,
             'loadCurrent': values[10].value,
+            'caseTemp' : values[11].value
         })
         print(r.status_code, r.reason)
     except Exception as e:
