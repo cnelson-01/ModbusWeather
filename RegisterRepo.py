@@ -4,6 +4,7 @@ from struct import unpack
 class ModbusRegister:
     def __init__(self, value):
         self.value = value
+        self.modified = False
 
     def asBytes(self):
         return bytes([(self.value >> 8) & 0xff, self.value & 0xff])
@@ -21,6 +22,7 @@ class RegisterRepo:
 
     def write(self, addr, value):
         self.registerArray[str(addr)] = ModbusRegister(value)
+        self.registerArray[str(addr)].modified = True
 
     def read(self, addr):
         if isinstance(addr, int):
@@ -28,6 +30,18 @@ class RegisterRepo:
         if addr in self.registerArray:
             return self.registerArray[addr].asInt()
         return 0
+
+    def isModified(self, addr):
+        if self.getRegister(addr):
+            return self.getRegister(addr).modified
+        return False
+
+    def getRegister(self, addr):
+        if isinstance(addr, int):
+            addr = str(addr)
+        if addr in self.registerArray:
+            return self.registerArray[addr]
+        return ''
 
     def printAll(self):
         for key, value in self.registerArray.items():

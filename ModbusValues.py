@@ -44,6 +44,10 @@ class ModbusFloat(ModbusBase):
         super().__init__(name, addr, rr)
 
     @property
+    def modified(self):
+        return self.rr.isModified(self.addr)
+
+    @property
     def value(self):
         if self.fixedPoint == 1:
             return self.readAsFloat()
