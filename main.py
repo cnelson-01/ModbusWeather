@@ -39,14 +39,17 @@ while threading.active_count() > 0:
     print('\n')
 
     time.sleep(2)
-    r = requests.post("http://127.0.0.1:8000/logTempData/", data={'tempInF': values[0].value, })
-    print(r.status_code, r.reason)
-    r = requests.post("http://127.0.0.1:8000/logSystemStatus/", data=
-    {
-        'panelVoltage': values[1].value,
-        'panelCurrent': values[2].value,
-        'batteryVoltage': values[5].value,
-        'loadVoltage': values[9].value,
-        'loadCurrent': values[10].value,
-    })
-    print(r.status_code, r.reason)
+    try:
+        r = requests.post("http://127.0.0.1:8000/logTempData/", data={'tempInF': values[0].value, })
+        print(r.status_code, r.reason)
+        r = requests.post("http://127.0.0.1:8000/logSystemStatus/", data=
+        {
+            'panelVoltage': values[1].value,
+            'panelCurrent': values[2].value,
+            'batteryVoltage': values[5].value,
+            'loadVoltage': values[9].value,
+            'loadCurrent': values[10].value,
+        })
+        print(r.status_code, r.reason)
+    except Exception as e:
+        print("error posting data " + str(e))
