@@ -33,25 +33,23 @@ values = [
 ]
 
 while threading.active_count() > 0:
-
-    time.sleep(2)
-    # try:
-    if values[0].modified:
-        for v in values:
-            print(str(v))
-        print('\n')
-        r = requests.post("http://127.0.0.1:8000/logTempData/", data={'tempInF': values[0].value, })
-        print(r.status_code, r.reason)
-    if values[1].modified:
-        r = requests.post("http://127.0.0.1:8000/logSystemStatus/", data=
-        {
-            'panelVoltage': values[1].value,
-            'panelCurrent': values[2].value,
-            'batteryVoltage': values[5].value,
-            'loadVoltage': values[9].value,
-            'loadCurrent': values[10].value,
-            'caseTemp': values[11].value
-        })
-        print(r.status_code, r.reason)
-    # except Exception as e:
-    #     print("error posting data " + str(e))
+    try:
+        if values[0].modified:
+            for v in values:
+                print(str(v))
+            print('\n')
+            r = requests.post("http://127.0.0.1:8000/logTempData/", data={'tempInF': values[0].value, })
+            print(r.status_code, r.reason)
+        if values[1].modified:
+            r = requests.post("http://127.0.0.1:8000/logSystemStatus/", data=
+            {
+                'panelVoltage': values[1].value,
+                'panelCurrent': values[2].value,
+                'batteryVoltage': values[5].value,
+                'loadVoltage': values[9].value,
+                'loadCurrent': values[10].value,
+                'caseTemp': values[11].value
+            })
+            print(r.status_code, r.reason)
+    except Exception as e:
+        print("error posting data " + str(e))
