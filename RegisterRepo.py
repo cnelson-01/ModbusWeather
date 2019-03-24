@@ -36,6 +36,11 @@ class RegisterRepo:
             return self.getRegister(addr).modified
         return False
 
+    def setModified(self, addr, val):
+        if self.getRegister(addr):
+            if isinstance(val, bool):
+                self.getRegister(addr).modified = val
+
     def getRegister(self, addr):
         if isinstance(addr, int):
             addr = str(addr)

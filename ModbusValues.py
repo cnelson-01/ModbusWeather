@@ -47,6 +47,9 @@ class ModbusFloat(ModbusBase):
     def modified(self):
         return self.rr.isModified(self.addr)
 
+    @modified.setter
+    def modified(self, val):
+        self.rr.setModified(val)
     @property
     def value(self):
         if self.fixedPoint == 1:

@@ -35,12 +35,14 @@ values = [
 while threading.active_count() > 0:
     try:
         if values[0].modified:
+            values[0].modified = False
             for v in values:
                 print(str(v))
             print('\n')
             r = requests.post("http://127.0.0.1:8000/logTempData/", data={'tempInF': values[0].value, })
             print(r.status_code, r.reason)
         if values[1].modified:
+            values[1].modified = False
             r = requests.post("http://127.0.0.1:8000/logSystemStatus/", data=
             {
                 'panelVoltage': values[1].value,
