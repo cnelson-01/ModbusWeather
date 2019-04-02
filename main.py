@@ -53,5 +53,6 @@ while threading.active_count() > 0:
                 'caseTemp': values[11].value
             })
             print(r.status_code, r.reason)
+        time.sleep(.5)
     except Exception as e:
         print("error posting data " + str(e))
